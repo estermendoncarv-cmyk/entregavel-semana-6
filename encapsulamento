@@ -1,0 +1,38 @@
+# Encapsulamento com @property
+
+class ContaBancaria:
+    def __init__(self, titular, saldo_inicial):
+        self.titular = titular
+        self._saldo = saldo_inicial  # Atributo protegido
+
+    # Getter usando @property para expor o saldo de forma segura
+    @property
+    def saldo(self):
+        return self._saldo
+
+    # Setter com validação para impedir saldo negativo
+    @saldo.setter
+    def saldo(self, valor):
+        if valor < 0:
+            raise ValueError("Erro: O saldo não pode ser negativo
+        self._saldo = valor
+
+
+# Bloco de Demonstração e Testes
+if __name__ == "__main__":
+    print("--- Demonstração de Encapsulamento com @property ---")
+    
+    # Criando a conta com um valor válido
+    conta = ContaBancaria("Maria Silva", 500.0)
+    print(f"Titular: {conta.titular} | Saldo inicial: R$ {conta.saldo:.2f}")
+
+    # Alterando o saldo de forma válida via setter
+    conta.saldo = 850.0
+    print(f"Novo saldo válido: R$ {conta.saldo:.2f}")
+
+    # Testando a validação contra estado inválido (saldo negativo)
+    try:
+        print("\nTendo atribuir um valor de saldo negativo...")
+        conta.saldo = -200.0
+    except ValueError as e:
+        print(f"Exceção capturada com sucesso: {e}")
