@@ -1,0 +1,53 @@
+# Métodos Especiais (Dunder): __str__, __repr__, __eq__ e __lt__
+
+class Produto:
+    def __init__(self, codigo, nome, preco):
+        self.codigo = codigo
+        self.nome = nome
+        self.preco = preco
+
+    # __str__: Representação amigável para o usuário
+    def __str__(self):
+        return f"Produto: {self.nome} | Preço: R$ {self.preco:.2f}"
+
+    # __repr__: Representação oficial para desenvolvedores / depuração
+    def __repr__(self):
+        return f"Produto(codigo='{self.codigo}', nome='{self.nome}', preco={self.preco})"
+
+    # __eq__: Compara se dois produtos são iguais com base no código
+    def __eq__(self, outro):
+        if isinstance(outro, Produto):
+            return self.codigo == outro.codigo
+        return False
+
+    # __lt__: Compara se um produto é "menor" que outro com base no preço
+    def __lt__(self, outro):
+        if isinstance(outro, Produto):
+            return self.preco < outro.preco
+        return NotImplemented
+
+
+# Bloco de Demonstração e Testes
+if __name__ == "__main__":
+    print("--- Demonstração de Métodos Especiais (Dunder) ---")
+    
+    # Criando instâncias
+    p1 = Produto("A01", "Caderno", 25.0)
+    p2 = Produto("A02", "Mochila", 120.0)
+    p3 = Produto("A01", "Caderno Atualizado", 30.0)
+
+    # 1. Testando __str__ (uso do print)
+    print("\n1. Teste __str__:")
+    print(p1)  # Chama automaticamente o __str__
+
+    # 2. Testando __repr__ (exibição na lista/console)
+    print("\n2. Teste __repr__:")
+    print([p1, p2])  # Usa o __repr__ dos itens da lista
+
+    # 3. Testando __eq__ (igualdade)
+    print("\n3. Teste __eq__ (p1 == p3 pelo código 'A01'):")
+    print(p1 == p3)  # True, pois os códigos são iguais
+
+    # 4. Testando __lt__ (menor que, útil para ordenação)
+    print("\n4. Teste __lt__ (p1 < p2 pelo preço):")
+    print(p1 < p2)  # True, pois 25.0 < 120.0
