@@ -1,0 +1,39 @@
+# 5. Bloco de Testes e Demonstração
+if __name__ == "__main__":
+    print("--- DEMONSTRAÇÃO DO SISTEMA ---")
+    
+    # Criação de pelo menos 10 instâncias de objetos (contas e clientes)
+    contas = [
+        ContaCorrente("001-1", "Ana Silva", 1200.0, 300.0),
+        ContaCorrente("002-2", "Bruno Souza", 450.0, 200.0),
+        ContaCorrente("003-3", "Carlos Lima", 3000.0, 1000.0),
+        ContaCorrente("004-4", "Daniela Rocha", 850.0, 500.0),
+        ContaCorrente("005-5", "Eduardo Dias", 150.0, 100.0),
+        ContaPoupanca("101-1", "Fernanda Costa", 5000.0, 0.03),
+        ContaPoupanca("102-2", "Gabriel Martins", 2300.0, 0.025),
+        ContaPoupanca("103-3", "Helena Pires", 12400.0, 0.04),
+        ContaPoupanca("104-4", "Igor Mendes", 900.0, 0.02),
+        ContaPoupanca("105-5", "Juliana Ribeiro", 6700.0, 0.035)
+    ]
+
+    # Demonstração de Polimorfismo (iterando sobre uma lista de objetos diferentes)[cite: 5]
+    print("\nAvaliação de Taxas de Manutenção (Polimorfismo):")
+    for c in contas:
+        print(f"Titular: {c._titular} | Taxa: R$ {c.calcular_taxa_manutencao():.2f}")
+
+    # Tratamento de exceções (try/except) para entradas inválidas[cite: 5]
+    print("\nTestando Tratamento de Exceções:")
+    try:
+        # Tentativa de atribuir saldo negativo (disparará o property setter)
+        conta_teste = ContaCorrente("999-9", "Teste Erro", 100.0)
+        conta_teste.saldo = -50.0
+    except ValueError as e:
+        print(f"Erro capturado com sucesso: {e}")
+
+    try:
+        # Tentativa de e-mail inválido na classe Cliente
+        cli = Cliente("Teste", "123.456.789-00", "email_sem_arroba.com")
+        cli.email = "email_invalido"
+    except ValueError as e:
+        print(f"Erro capturado com sucesso: {e}")
+```[cite: 5]
