@@ -1,0 +1,48 @@
+from abc import ABC, abstractmethod
+
+# 1. Classe Abstrata (Mãe)
+class Produto(ABC):
+    def __init__(self, nome, preco_base):
+        self.nome = nome
+        self.preco_base = preco_base
+
+    @abstractmethod
+    def calcular_preco_final(self):
+        """Método abstrato que será sobrescrito nas classes filhas[cite: 5]."""
+        pass
+
+# 2. Classe Filha 1
+class ProdutoFisico(Produto):
+    def __init__(self, nome, preco_base, frete):
+        super().__init__(nome, preco_base)
+        self.frete = frete
+
+    # Sobrescrita do método (Polimorfismo)[cite: 5]
+    def calcular_preco_final(self):
+        return self.preco_base + self.frete
+
+# 3. Classe Filha 2
+class ProdutoDigital(Produto):
+    def __init__(self, nome, preco_base):
+        super().__init__(nome, preco_base)
+
+    # Sobrescrita do método (Polimorfismo)[cite: 5]
+    def calcular_preco_final(self):
+        # Exemplo: Desconto aplicado para produtos digitais
+        return self.preco_base * 0.90
+
+# 4. Demonstração de Polimorfismo
+if __name__ == "__main__":
+    # Criando instâncias de classes diferentes
+    carrinho = [
+        ProdutoFisico("Livro Impresso", 50.0, 15.0),
+        ProdutoDigital("E-book de Python", 40.0),
+        ProdutoFisico("Notebook", 3500.0, 50.0)
+    ]
+
+    print("--- Demonstração de Polimorfismo ---")
+    # Iterando sobre a lista e chamando o mesmo método, obtendo comportamentos distintos[cite: 5]
+    for item in carrinho:
+        preco_final = item.calcular_preco_final()
+        print(f"Produto: {item.nome} | Preço Final: R$ {preco_final:.2f}")
+```[cite: 5]
